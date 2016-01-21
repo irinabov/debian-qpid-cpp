@@ -1,8 +1,8 @@
-qpid-cpp (0.34-2trusty+qpid1) trusty; urgency=medium
+qpid-cpp (0.34-2wily+qpid1) wily; urgency=medium
 
-  * Update to build against proton 0.11.1
+  * Initial build for wily against proton 0.11.1.
 
- -- Matt Broadstone <mbroadst@gmail.com>  Fri, 08 Jan 2015 09:59:32 -0400
+ -- Irina Boverman <iboverma@redhat.com>  Thu, 21 Jan 2016 09:59:32 -0400
 
 qpid-cpp (0.34-1trusty+qpid1) trusty; urgency=medium
 
