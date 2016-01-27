@@ -1,7 +1,6 @@
-From 8eff829a847b40c2bfdb26fe5c20d245d2eba83c Mon Sep 17 00:00:00 2001
 From: Irina Boverman <iboverma@redhat.com>
-Date: Wed, 27 Jan 2016 15:59:00 +0000
-Subject: [PATCH] Added QPID-6858 fix
+Date: Wed, 27 Jan 2016 20:26:00 +0000
+Subject: Added QPID-6858 patch
 
 ---
  include/qpid/swig_python_typemaps.i | 34 +++++++++++++++++++---------------
@@ -112,6 +111,3 @@ index 52b0d97..a27782d 100644
      } else
  %#endif
      {
--- 
-2.5.0
-
