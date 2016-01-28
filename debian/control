@@ -6,6 +6,7 @@ Uploaders: Darryl L. Pierce <dpierce@redhat.com>, Daniel Pocock <daniel@pocock.p
 Build-Depends: debhelper (>= 9.0.0~),
                cmake,
                pkg-config,
+               dh-python,
                libboost-program-options-dev,
                libboost-system-dev,
                libsasl2-dev,
