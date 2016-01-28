@@ -32,10 +32,7 @@ override_dh_auto_configure:
 			     -DBUILD_LINEARSTORE=true \
 			     -DBUILD_LEGACYSTORE=true \
 			     -DPERL_PFX_ARCHLIB=$Config{sitearch} \
-			     -DBUILDING_BINDING_RUBY=false \
-                             -DPYTHON_EXECUTABLE=/usr/bin/python2 \
-			     -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
-                             -DPYTHON_LIBRARY=/usr/lib64/libpython2.7.so
+			     -DBUILDING_BINDING_RUBY=false
 
 override_dh_auto_build:
 	dh_auto_build -- -j4 docs
