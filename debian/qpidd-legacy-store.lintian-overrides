@@ -1,0 +1,4 @@
+qpidd-legacy-store: hardening-no-fortify-functions usr/lib/*/qpid/daemon/store.so.0.32
+qpidd-legacy-store: postinst-has-useless-call-to-ldconfig
+qpidd-legacy-store: postrm-has-useless-call-to-ldconfig
+qpidd-legacy-store: hardening-no-fortify-functions usr/lib/x86_64-linux-gnu/qpid/daemon/legacystore.so

@@ -1,0 +1,6 @@
+usr/sbin/qpidd
+usr/share/man/man1/qpidd.1
+etc/qpid/qpidd.conf
+etc/sasl2/qpidd.conf
+debian/qpidd.acl etc/qpid
+usr/lib/*/qpid/daemon/amqp.so

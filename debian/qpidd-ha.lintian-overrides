@@ -1,0 +1,1 @@
+qpidd-ha: hardening-no-fortify-functions usr/lib/*/qpid/daemon/ha.so

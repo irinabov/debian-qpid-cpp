@@ -1,0 +1,30 @@
+#!/bin/sh
+# postinst script for qpidd
+#
+# see: dh_installdeb(1)
+
+CONFFILE=/etc/qpid/qpidd.conf
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+case "$1" in
+    configure)
+        # create user qpidd if missing
+        if ! getent passwd qpidd > /dev/null ; then
+            echo "Adding system-user qpid" 1>&2
+            adduser --system --home /var/run/qpid --group --no-create-home --disabled-password qpidd
+        else
+            echo "System-user qpid already exists" 1>&2
+        fi
+
+        # ensure qpid owns its own configuration file
+        if [ -f $CONFFILE ]; then
+            chown qpidd:qpidd $CONFFILE 2>/dev/null
+            chmod 640 $CONFFILE
+        fi
+    ;;
+esac
+
+#DEBHELPER#

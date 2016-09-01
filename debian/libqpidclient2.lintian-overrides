@@ -1,0 +1,1 @@
+libqpidclient2: hardening-no-fortify-functions usr/lib/*/libqpidclient.so.2.0.0

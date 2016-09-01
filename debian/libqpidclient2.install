@@ -1,0 +1,3 @@
+usr/lib/*/libqpidclient.so.2
+usr/lib/*/libqpidclient.so.2.0.0
+etc/qpid/qpidc.conf

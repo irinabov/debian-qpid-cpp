@@ -1,0 +1,4 @@
+qpidd-linear-store: package-name-doesnt-match-sonames liblinearstoreutils
+qpidd-linear-store: hardening-no-fortify-functions usr/lib/x86_64-linux-gnu/liblinearstoreutils.so
+qpidd-linear-store: hardening-no-fortify-functions usr/lib/x86_64-linux-gnu/qpid/daemon/linearstore.so
+qpidd-linear-store: shlib-without-versioned-soname usr/lib/x86_64-linux-gnu/liblinearstoreutils.so liblinearstoreutils.so

@@ -1,0 +1,1 @@
+libqpidbroker2: hardening-no-fortify-functions usr/lib/*/libqpidbroker.so.2.0.0

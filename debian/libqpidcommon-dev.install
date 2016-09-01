@@ -1,0 +1,7 @@
+usr/lib/*/libqpidcommon.so
+usr/include/qpid/ImportExport.h
+usr/include/qpid/sys
+usr/include/qpid/qpid.i
+usr/include/qpid/swig_perl_typemaps.i
+usr/include/qpid/swig_python_typemaps.i
+usr/include/qpid/swig_ruby_typemaps.i

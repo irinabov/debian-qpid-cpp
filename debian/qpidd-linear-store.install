@@ -1,0 +1,2 @@
+usr/lib/*/qpid/daemon/linearstore.so
+usr/lib/*/liblinearstoreutils.so

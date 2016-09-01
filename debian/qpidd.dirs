@@ -1,0 +1,5 @@
+etc/qpid
+etc/sasl2
+etc/rsyslog.d
+usr/sbin
+usr/lib/*/qpid/daemon
