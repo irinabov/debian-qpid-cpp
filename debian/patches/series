@@ -1,1 +1,2 @@
-fix-lvq-release.diff
+0001-QPID-7406-reset-cursors-for-cosnumers-if-message-is-.patch
+0002-Added-DESTDIR.patch
