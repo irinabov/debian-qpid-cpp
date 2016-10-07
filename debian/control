@@ -22,7 +22,9 @@ Build-Depends: debhelper (>= 9.0.0~),
                libibverbs-dev,
                swig,
                ruby,
-               libqpid-proton8-dev (>= 0.11~)
+               libqpid-proton8-dev (>= 0.11~),
+               python-setuptools, dh-python
+X-Python-Version: >= 2.6
 Standards-Version: 3.9.5
 Homepage: http://qpid.apache.org/
 Vcs-Browser: http://git.debian.org/?p=pkg-middleware/qpid-cpp.git
@@ -413,3 +415,16 @@ Description: Tool for sending test messages to a Qpid broker.
  and Ruby.
  .
  This package provides the qpid-receive tool.
+
+Package: qpid-tools
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends},
+         python-setuptools,
+         python-qmf2,
+         python-qpid,
+         python-cqmf2
+Description: Python bindings for qpid/mlib
+ Qpid/C++ is a C++ implementation of the AMQP protocol described at
+ http://amqp.org/
+ .
+ This package contains the qpid python bindings.

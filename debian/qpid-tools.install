@@ -1,0 +1,19 @@
+usr/bin/qpid-config
+usr/bin/qpid-ha
+usr/bin/qpid-printevents
+usr/bin/qpid-queue-stats
+usr/bin/qpid-route
+usr/bin/qpid-stat
+usr/bin/qpid-tool
+usr/lib/python2.7/site-packages/qpidtoollibs/broker.py   usr/lib/python2.7/dist-packages/qpidtoollibs/broker.py
+usr/lib/python2.7/site-packages/qpidtoollibs/config.py   usr/lib/python2.7/dist-packages/qpidtoollibs/config.py
+usr/lib/python2.7/site-packages/qpidtoollibs/disp.py     usr/lib/python2.7/dist-packages/qpidtoollibs/disp.py
+usr/lib/python2.7/site-packages/qpidtoollibs/__init__.py usr/lib/python2.7/dist-packages/qpidtoollibs/__init__.py
+usr/lib/python2.7/site-packages/qpid_tools*.egg-info     usr/lib/python2.7/dist-packages/qpid_tools*.egg-info
+usr/libexec/qpid-qls-analyze
+usr/share/qpid-tools/python/qlslibs/analyze.py
+usr/share/qpid-tools/python/qlslibs/efp.py
+usr/share/qpid-tools/python/qlslibs/err.py
+usr/share/qpid-tools/python/qlslibs/__init__.py
+usr/share/qpid-tools/python/qlslibs/jrnl.py
+usr/share/qpid-tools/python/qlslibs/utils.py

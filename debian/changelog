@@ -1,3 +1,9 @@
+qpid-cpp (1.35.0-1qpid+trusty1) trusty; urgency=medium
+
+  * Added qpid-tools
+
+ -- Irina Boverman <iboverma@redhat.com>  Fri, 07 Oct 2016 14:32:47 -0400
+
 qpid-cpp (1.35-0qpid+trusty1) trusty; urgency=medium
 
   * Rebased on 1.35.0
