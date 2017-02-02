@@ -1,3 +1,9 @@
+qpid-cpp (1.35.0-1) unstable; urgency=medium
+
+  * Build for debian/unstable
+
+ -- Irina Boverman <iboverma@redhat.com> Thu,  2 Feb 2017 14:05:34 -0400 
+
 qpid-cpp (1.35.0-2qpid+xenial1) xenial; urgency=medium
 
   * Added qpid-tools
