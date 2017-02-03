@@ -42,20 +42,6 @@ Description: Qpid AMQP types libraries
  .
  This package provides the Apache Qpid types libraries.
 
-Package: libqpidtypes1-dev
-Architecture: any
-Section: oldlibs
-Priority: extra
-Depends: libqpidtypes-dev (= ${binary:Version}), ${misc:Depends}
-Multi-Arch: same
-Description: Transitional development package for libqpidtypes-dev.
- Apache Qpid is a cross-platform enterprise messaging system which implements
- the Advanced Message Queuing Protocol (AMQP), providing message brokers
- written in C++ and Java, along with clients for C++, Java JMS, .Net, Python,
- and Ruby.
- .
- This is a virtual package.
-
 Package: libqpidtypes-dev
 Architecture: any
 Section: libdevel
