@@ -269,7 +269,7 @@ Description: Qpid broker
  .
  This package provides the Apache Qpid broker.
 
-Package: qpidd-linear-store
+Package: libqpidd-linear-store
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: qpidd (= ${binary:Version}),
