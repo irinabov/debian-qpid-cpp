@@ -1,1 +1,0 @@
-libqpidmessaging2: hardening-no-fortify-functions usr/lib/*/libqpidmessaging.so.2.0.0
