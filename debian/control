@@ -245,6 +245,7 @@ Description: enterprise messaging system - Python CQMF2 bindings
 Package: qpidd
 Architecture: any
 Depends: adduser,
+         lsb-base,
          libqpidcommon2 (= ${binary:Version}),
          ${shlibs:Depends}, ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}

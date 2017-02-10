@@ -39,10 +39,6 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	dh_auto_build -- -j4 docs
 
-override_dh_installinit:
-	dh_installinit
-	dh_installinit --name=qpidd-primary
-
 override_dh_compress:
 	dh_compress --exclude=spout
 
