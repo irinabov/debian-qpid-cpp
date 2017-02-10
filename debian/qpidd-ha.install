@@ -1,3 +1,2 @@
 usr/lib/*/qpid/daemon/ha.so
-etc/rc.d/init.d/qpidd-primary etc/init.d/qpidd-primary
 
