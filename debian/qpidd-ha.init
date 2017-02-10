@@ -1,0 +1,2 @@
+[Install]
+Alias=qpidd-primary.init
