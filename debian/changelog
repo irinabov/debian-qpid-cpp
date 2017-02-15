@@ -1,6 +1,8 @@
-qpid-cpp (1.35.0-1) unstable; urgency=low
+qpid-cpp (1.35.0-1) testing; urgency=medium
 
   * Rebased to 1.35.0.
+  * Replaced qpidd-linear-store by liblinearstore
+  * Obsoleted qpidd-legacy-store
 
  -- Irina Boverman <iboverma@redhat.com>  Thu, 02 Feb 2017 15:59:58 +0200
 
