@@ -142,7 +142,7 @@ Package: libqpidbroker2
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
+Multi-Arch: same 
 Description: Qpid broker libraries
  Apache Qpid is a cross-platform enterprise messaging system which implements
  the Advanced Message Queuing Protocol (AMQP), providing message brokers
@@ -256,8 +256,13 @@ Description: Qpid broker
  .
  This package provides the Apache Qpid broker.
 
-Package: libqpidd-linear-store
+Package: liblinearstore
+Replaces: qpidd-linear-store (<< 1.35.0-1~)
+Conflicts: qpidd-linear-store (<< 1.35.0-1~)
+Conflicts: qpidd-legacy-store (<< 1.35.0-1~)
+Provides: qpidd-linear-store 
 Architecture: any
+Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: qpidd (= ${binary:Version}),
          ${shlibs:Depends}, ${misc:Depends}
