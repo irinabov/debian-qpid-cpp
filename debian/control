@@ -258,8 +258,7 @@ Description: Qpid broker
 
 Package: liblinearstore
 Replaces: qpidd-linear-store (<< 1.35.0-1~)
-Conflicts: qpidd-linear-store (<< 1.35.0-1~)
-Conflicts: qpidd-legacy-store (<< 1.35.0-1~)
+Conflicts: qpidd-linear-store (<< 1.35.0-1~), qpidd-legacy-store (<< 1.35.0-1~)
 Provides: qpidd-linear-store 
 Architecture: any
 Multi-Arch: same
