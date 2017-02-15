@@ -14,7 +14,7 @@ case "$1" in
         # create user qpidd if missing
         if ! getent passwd qpidd > /dev/null ; then
             echo "Adding system-user qpid" 1>&2
-            adduser --system --home /var/run/qpid --group --no-create-home --disabled-password qpidd
+            adduser --system --home /var/run/qpid --group --disabled-password qpidd
         else
             echo "System-user qpid already exists" 1>&2
         fi
