@@ -1,2 +1,3 @@
 0001-QPID-7406-reset-cursors-for-cosnumers-if-message-is-.patch
 0002-Added-DESTDIR.patch
+0003-Added-QPID-7671-and-QPID-7674-fixes.patch
