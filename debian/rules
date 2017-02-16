@@ -33,8 +33,7 @@ override_dh_auto_configure:
                              -DSYSCONF_INSTALL_DIR:PATH=/etc \
 			     -DBUILD_LINEARSTORE=true \
 			     -DPERL_PFX_ARCHLIB=$Config{sitearch} \
-			     -DBUILDING_BINDING_RUBY=false \
-			     -DCMAKE_BUILD_TYPE=Release
+			     -DBUILDING_BINDING_RUBY=false
 
 override_dh_auto_build:
 	dh_auto_build -- -j4 docs
