@@ -50,14 +50,14 @@ SessionContext::~SessionContext()
         pn_session_free(session);
 }
 
-boost::shared_ptr<SenderContext> SessionContext::createSender(const qpid::messaging::Address& address, bool setToOnSend)
+boost::shared_ptr<SenderContext> SessionContext::createSender(const qpid::messaging::Address& address, const SenderOptions& options)
 {
     error.raise();
     std::string name = AddressHelper::getLinkName(address);
     if (senders.find(name) != senders.end())
         throw LinkError("Link name must be unique within the scope of the connection");
     boost::shared_ptr<SenderContext> s(
-        new SenderContext(session, name, address, setToOnSend, transaction));
+        new SenderContext(session, name, address, options, transaction));
     senders[name] = s;
     return s;
 }
@@ -97,13 +97,21 @@ boost::shared_ptr<ReceiverContext> SessionContext::getReceiver(const std::string
 void SessionContext::removeReceiver(const std::string& n)
 {
     error.raise();
-    receivers.erase(n);
+    SessionContext::ReceiverMap::iterator i = receivers.find(n);
+    if (i != receivers.end()) {
+        i->second->cleanup();
+        receivers.erase(i);
+    }
 }
 
 void SessionContext::removeSender(const std::string& n)
 {
     error.raise();
-    senders.erase(n);
+    SessionContext::SenderMap::iterator i = senders.find(n);
+    if (i != senders.end()) {
+        i->second->cleanup();
+        senders.erase(i);
+    }
 }
 
 boost::shared_ptr<ReceiverContext> SessionContext::nextReceiver()
@@ -208,6 +216,10 @@ bool SessionContext::settled()
     for (SenderMap::iterator i = senders.begin(); i != senders.end(); ++i) {
         try {
             if (!i->second->closed() && !i->second->settled()) result = false;
+        } catch (const MessageRejected&) {
+            throw;
+        } catch (const MessageReleased&) {
+            throw;
         } catch (const std::exception&) {
             senders.erase(i);
             throw;
@@ -254,5 +266,24 @@ void SessionContext::resetSession(pn_session_t* session_) {
     }
 }
 
+void SessionContext::cleanup() {
+    if (transaction) {
+        transaction->cleanup();
+        transaction = boost::shared_ptr<Transaction>();
+    }
+    for (SessionContext::SenderMap::iterator i = senders.begin(); i != senders.end(); ++i) {
+        i->second->cleanup();
+    }
+    senders.clear();
+    for (SessionContext::ReceiverMap::iterator i = receivers.begin(); i != receivers.end(); ++i) {
+        i->second->cleanup();
+    }
+    receivers.clear();
+    if (!error && session) {
+        error = new SessionClosed();
+        pn_session_free(session);
+        session = 0;
+    }
+}
 
 }}} // namespace qpid::messaging::amqp
