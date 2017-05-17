@@ -1,3 +1,9 @@
+qpid-cpp (1.36.0-1) xenial; urgency=medium
+
+  * Rebased to 1.36.0.
+
+ -- Irina Boverman <iboverma@redhat.com>  Wed, 17 May 2017 12:16:06 +0200
+
 qpid-cpp (1.35.0-1) testing; urgency=medium
 
   * Rebased to 1.35.0.
