@@ -15,7 +15,7 @@
 # DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/buildflags.mk
-export CXXFLAGS
+CXXFLAGS += -Wno-error=pedantic
 
 # package maintainers to append LDFLAGS
 
@@ -36,8 +36,7 @@ override_dh_auto_configure:
                              -DSYSCONF_INSTALL_DIR:PATH=/etc \
 			     -DBUILD_LINEARSTORE=true \
 			     -DPERL_PFX_ARCHLIB=$Config{sitearch} \
-			     -DBUILDING_BINDING_RUBY=false \
-                             "-DCMAKE_CXX_FLAGS=$(CXXFLAGS) -Wno-error=pedantic" 
+			     -DBUILDING_BINDING_RUBY=false
 
 override_dh_auto_build:
 	dh_auto_build -- -j4 docs
