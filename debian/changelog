@@ -1,16 +1,171 @@
-qpid-cpp (1.36.0-1) xenial; urgency=medium
+qpid-cpp (1.36.0-1qpid+xenial1) xenial; urgency=medium
 
-  * Rebased to 1.36.0.
-
- -- Irina Boverman <iboverma@redhat.com>  Wed, 17 May 2017 12:16:06 +0200
-
-qpid-cpp (1.35.0-1) testing; urgency=medium
-
-  * Rebased to 1.35.0.
+  * Rebased on 1.36.0
   * Replaced qpidd-linear-store by liblinearstore
   * Obsoleted qpidd-legacy-store
 
- -- Irina Boverman <iboverma@redhat.com>  Thu, 02 Feb 2017 15:59:58 +0200
+ -- Irina Boverman <iboverma@redhat.com>  Thu, 18 May 2017 14:41:09 -0400
+
+qpid-cpp (1.35.0-2qpid+xenial1) xenial; urgency=medium
+
+  * Added qpid-tools
+
+ -- Irina Boverman <iboverma@redhat.com>  Mon, 10 Oct 2016 11:40:55 -0400
+
+qpid-cpp (1.35-0qpid+trusty1) trusty; urgency=medium
+
+  * Rebased on 1.35.0
+
+ -- Matt Broadstone <mbroadst@gmail.com>  Thu, 01 Sep 2016 19:33:05 -0400
+
+qpid-cpp (0.35-1trusty+hio1) trusty; urgency=medium
+
+  * update to qpid trunk for a prerelease 0.35
+
+ -- Matt Broadstone <mbroadst@gmail.com>  Sat, 09 Jan 2015 16:33:40 -0400
+
+qpid-cpp (0.34-2trusty+qpid1) trusty; urgency=medium
+
+  * Update to build against proton 0.11.1
+
+ -- Matt Broadstone <mbroadst@gmail.com>  Fri, 08 Jan 2015 09:59:32 -0400
+
+qpid-cpp (0.34-1trusty+qpid1) trusty; urgency=medium
+
+  * Rebased on qpid-cpp 0.34
+
+ -- Matt Broadstone <mbroadst@gmail.com>  Fri, 28 Aug 2015 10:15:59 -0400
+
+qpid-cpp (0.32-3qpid+trusty1) trusty; urgency=medium
+
+  * Bumped the release and rebuilt for the new Qpid testing PPA.
+
+ -- Darryl L. Pierce <dpierce@redhat.com>  Thu, 11 Jun 2015 15:09:16 -0400
+
+qpid-cpp (0.32-2trusty+mcpierce1) trusty; urgency=low
+
+  * Added /etc/sasl2/qpidd.conf to the qpidd package.
+  * Added /etc/qpidd/qpidd.acl to the qpidd package.
+
+ -- Darryl L. Pierce <dpierce@redhat.com>  Tue, 02 Jun 2015 13:43:58 -0400
+
+qpid-cpp (0.32-1trusty+mcpierce1) trusty; urgency=medium
+
+  * Rebased on Qpid 0.32.
+
+ -- Darryl L. Pierce <dpierce@redhat.com>  Mon, 27 Apr 2015 11:36:36 -0400
+
+qpid-cpp (0.28-10trusty+mcpierce1) trusty; urgency=low
+
+  * Fixed numerous warnings that have cropped up in Ubuntu builds.
+  * Added transitional development packages.
+  * Closes: #766608
+  * Closes: #766609
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Fri, 24 Oct 2014 07:55:48 -0400
+
+qpid-cpp (0.28-9trusty+mcpierce1) trusty; urgency=low
+
+  * Store package still had issues with loading two modules at once.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Wed, 22 Oct 2014 17:07:40 -0400
+
+qpid-cpp (0.28-8trusty+mcpierce1) trusty; urgency=low
+
+  * Fixed dependencies between development packages.
+  * Added libdb dependency to ensure the legacy store is built.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Wed, 22 Oct 2014 09:53:32 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce6) trusty; urgency=medium
+
+  * Added /etc/sasl2/qpidd.conf to qpidd package.
+
+ -- Darryl Pierce <mcpierce@gmail.com>  Mon, 22 Sep 2014 14:14:21 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce5) trusty; urgency=medium
+
+  * Fixed the rules file to not compress the examples.
+
+ -- Darryl Pierce <mcpierce@gmail.com>  Wed, 17 Sep 2014 09:54:51 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce4) trusty; urgency=medium
+
+  *  Added the python-qpid-messaging-examples package.
+
+ -- Darryl Pierce <mcpierce@gmail.com>  Tue, 16 Sep 2014 09:38:06 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce3) trusty; urgency=medium
+
+  * Added swig dependency.
+
+ -- Darryl Pierce <mcpierce@gmail.com>  Tue, 16 Sep 2014 07:32:01 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce2) trusty; urgency=medium
+
+  * Renamed python-qpidmessaging to python-qpid-messaging.
+
+ -- Darryl Pierce <mcpierce@gmail.com>  Mon, 15 Sep 2014 16:06:01 -0400
+
+qpid-cpp (0.28-7trusty+mcpierce1) trusty; urgency=low
+
+  * Restored the python-qmf2 package.
+  * Restored the python-cqmf2 package.
+  * Added dependency from -qmf2 onto -cqmf2.
+  * Added build dependency on Swig for language bindings.
+  * Created the python-qpid-messaging package.
+  * Created the python-qpid-messaging-examples package.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Thu, 11 Sep 2014 17:36:23 -0400
+
+qpid-cpp (0.28-6trusty+_mcpierce1) trusty; urgency=low
+
+  * Corrected the bug # for the new maintainer in changelog.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Wed, 10 Sep 2014 15:14:13 -0400
+
+qpid-cpp (0.28-5trusty+mcpierce1) trusty; urgency=low
+
+  * Split qpid-tools into qpid-send and qpid-receive packages.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Tue, 09 Sep 2014 13:31:05 -0400
+
+qpid-cpp (0.28-4trusty+mcpierce1) trusty; urgency=low
+
+  * Added missing amqp.so module.
+  * Added qpid-tools package.
+  * Updated qpidd.postinst to not error out on unknown arguments.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Mon, 08 Sep 2014 07:26:46 -0400
+
+qpid-cpp (0.28-3trusty+mcpierce1) trusty; urgency=low
+
+  * Updated the list of build dependencies.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Fri, 05 Sep 2014 16:04:29 -0400
+
+qpid-cpp (0.28-2trusty+mcpierce1) trusty; urgency=low
+
+  * Enable AMQP 1.0 support by requiring libqpid-proton2.
+  * Fixed names of -dev packages to include soversion.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Thu, 04 Sep 2014 09:50:35 -0400
+
+qpid-cpp (0.28-1trusty+mcpierce1) trusty; urgency=medium
+
+  * New maintainer. (Closes: #757652)
+  * Dropped the qpid-client package.
+  * Dropped the qpid-client package.
+  * Removed the following packages for libraries no longer produced:
+    * libqmf1 and libqmf-dev
+    * libqmfconsole2 and libqmfconsole2-dev
+    * librdmawrap2 and librdmawrap2-dev
+    * libsslcommon2 and libsslcommon2-dev
+  * Renamed qmfgen to qmf-gen.
+  * Created the qpidd-store package.
+  * Created the qpidd-ha package.
+
+ -- Darryl L. Pierce <mcpierce@gmail.com>  Thu, 07 Aug 2014 11:29:12 -0400
 
 qpid-cpp (0.16-7.1) unstable; urgency=medium
 
@@ -25,12 +180,56 @@ qpid-cpp (0.16-7.1) unstable; urgency=medium
 
  -- Dimitri John Ledkov <xnox@ubuntu.com>  Wed, 30 Apr 2014 00:07:42 +0100
 
+qpid-cpp (0.16-7ubuntu5) trusty; urgency=low
+
+  * Rebuild for Perl 5.18.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 21 Oct 2013 13:44:56 +0100
+
+qpid-cpp (0.16-7ubuntu4) saucy; urgency=low
+
+  * Drop build-dependency on obsolete libxmltooling5 package (closes:
+    #716737).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 10 Oct 2013 00:03:54 +0100
+
+qpid-cpp (0.16-7ubuntu3) saucy; urgency=low
+
+  * Disable build 'with-cpg' because it Depends on libcman-dev, which is a
+    deprecated library and will be soon be removed from the archive (as part
+    of redhat-cluster) support. (Newer upstream releases do not seem to
+    have a '--with-cpg' configure option nor support for cman/corosync).
+    - debian/rules: Remove '--with-cpg'.
+    - debian/control: Drop Build-Dep on libcman-dev, libcorosync-dev, libopenais-dev.
+
+ -- Andres Rodriguez <andreserl@ubuntu.com>  Fri, 26 Jul 2013 12:02:18 -0400
+
+qpid-cpp (0.16-7ubuntu2) saucy; urgency=low
+
+  * Cherry-pick patch from fedora to fix FTBFS with gcc-4.8.
+  * Use patch from QPID-4095 to build against Boost FS Version 3.
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Fri, 24 May 2013 16:56:12 +0100
+
+qpid-cpp (0.16-7ubuntu1) quantal; urgency=low
+
+  * Merge from Debian, remaining changes:
+    - Disable testsuite due to IPv6 failure see 1016778.
+
+ -- Oussama Bounaim <o.bounaim@gmail.com>  Fri, 28 Sep 2012 09:22:53 +0100
+
 qpid-cpp (0.16-7) unstable; urgency=low
 
   * Fixes security issue CVE-2012-3467 which may allow bypassing the
     broker authentication mechanism. Closes: #684456.
 
  -- Cajus Pollmeier <cajus@debian.org>  Fri, 10 Aug 2012 20:39:06 +0200
+
+qpid-cpp (0.16-6ubuntu1) quantal; urgency=low
+
+  * Disable testsuite due to IPv6 failure see 1016778.
+
+ -- Dmitrijs Ledkovs <dmitrij.ledkov@ubuntu.com>  Wed, 04 Jul 2012 08:59:42 +0100
 
 qpid-cpp (0.16-6) unstable; urgency=low
 
