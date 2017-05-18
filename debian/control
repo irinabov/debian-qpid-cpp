@@ -25,7 +25,7 @@ Build-Depends: debhelper (>= 9.0.0~),
                python-setuptools, dh-python,
                dh-systemd
 X-Python-Version: >= 2.6
-Standards-Version: 3.9.8
+Standards-Version: 3.9.7
 Homepage: http://qpid.apache.org/
 Vcs-Browser: http://git.debian.org/?p=pkg-middleware/qpid-cpp.git
 Vcs-Git: git://git.debian.org/git/pkg-middleware/qpid-cpp.git
