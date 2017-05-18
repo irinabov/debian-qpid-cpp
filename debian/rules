@@ -13,8 +13,11 @@
 # export DH_VERBOSE=1
 
 # DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-# DPKG_EXPORT_BUILDFLAGS = 1
-# include /usr/share/dpkg/buildflags.mk
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+export CXXFLAGS
+
+# package maintainers to append LDFLAGS
 
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
@@ -33,7 +36,8 @@ override_dh_auto_configure:
                              -DSYSCONF_INSTALL_DIR:PATH=/etc \
 			     -DBUILD_LINEARSTORE=true \
 			     -DPERL_PFX_ARCHLIB=$Config{sitearch} \
-			     -DBUILDING_BINDING_RUBY=false
+			     -DBUILDING_BINDING_RUBY=false \
+                             "-DCMAKE_CXX_FLAGS=$CXXFLAGS -std=c++11 -Wno-error=pedantic" 
 
 override_dh_auto_build:
 	dh_auto_build -- -j4 docs
