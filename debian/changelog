@@ -1,12 +1,12 @@
-qpid-cpp (1.36.0-1qpid+xenial1) xenial; urgency=medium
+qpid-cpp (1.36.0-1qpid+trusty1) trusty; urgency=medium
 
   * Rebased on 1.36.0
   * Replaced qpidd-linear-store by liblinearstore
   * Obsoleted qpidd-legacy-store
 
- -- Irina Boverman <iboverma@redhat.com>  Thu, 18 May 2017 14:41:09 -0400
+ -- Irina Boverman <iboverma@redhat.com>  Wed, 14 Jun 2017 11:34:57 -0400
 
-qpid-cpp (1.35.0-2qpid+xenial1) xenial; urgency=medium
+qpid-cpp (1.35.0-2qpid+trusty1) trusty; urgency=medium
 
   * Added qpid-tools
 

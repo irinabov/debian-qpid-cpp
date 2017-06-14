@@ -2,7 +2,7 @@ Source: qpid-cpp
 Section: misc
 Priority: extra
 Maintainer: Debian Middleware Maintainers <pkg-middleware-maintainers@lists.alioth.debian.org>
-Uploaders: Darryl L. Pierce <dpierce@redhat.com>, Daniel Pocock <daniel@pocock.pro>
+Uploaders: Irina Boverman <iboverma@redhat.com>
 Build-Depends: debhelper (>= 9.0.0~),
                cmake,
                pkg-config,
@@ -25,7 +25,7 @@ Build-Depends: debhelper (>= 9.0.0~),
                python-setuptools, dh-python,
                dh-systemd
 X-Python-Version: >= 2.6
-Standards-Version: 3.9.7
+Standards-Version: 3.9.5
 Homepage: http://qpid.apache.org/
 Vcs-Browser: http://git.debian.org/?p=pkg-middleware/qpid-cpp.git
 Vcs-Git: git://git.debian.org/git/pkg-middleware/qpid-cpp.git
