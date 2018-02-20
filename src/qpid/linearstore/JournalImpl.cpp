@@ -32,13 +32,58 @@ namespace linearstore {
 
 InactivityFireEvent::InactivityFireEvent(JournalImpl* p,
                                          const ::qpid::sys::Duration timeout):
-        ::qpid::sys::TimerTask(timeout, "JournalInactive:"+p->id()), _parent(p) {}
+        ::qpid::sys::TimerTask(timeout, "JournalInactive:"+p->id()), _parent(p),
+         _state(NOT_ADDED)
+{}
+
+void InactivityFireEvent::reset(qpid::sys::Timer& timer) {
+    ::qpid::sys::Mutex::ScopedLock sl(_ifeStateLock);
+    switch (_state) {
+    case NOT_ADDED:
+        timer.add(this);
+        break;
+    case FIRED :
+        setupNextFire();
+        timer.add(this);
+        break;
+    case FLUSHED:
+        restart();
+        break;
+    case CANCELLED:
+        return;
+    default:; // ignore
+    }
+    _state = RUNNING;
+}
+
+::qpid::linearstore::journal::iores InactivityFireEvent::flush(bool blockFlag) {
+    ::qpid::sys::Mutex::ScopedLock sl(_ifeStateLock);
+    if (_state == RUNNING) {
+        ::qpid::linearstore::journal::iores res = _parent->do_flush(blockFlag);
+        _state = FLUSHED;
+        return res;
+    }
+    return ::qpid::linearstore::journal::RHM_IORES_SUCCESS;
+}
 
 void InactivityFireEvent::fire() {
-    ::qpid::sys::Mutex::ScopedLock sl(_ife_lock);
-    if (_parent) {
-        _parent->flushFire();
+    ::qpid::sys::Mutex::ScopedLock sl(_ifeStateLock);
+    switch (_state) {
+    case RUNNING:
+        _parent->do_flush(false);
+        _state = FIRED;
+        break;
+    case FLUSHED:
+        _state = FIRED;
+        break;
+    default:; // ignore
     }
+}
+
+void InactivityFireEvent::cancel() {
+    ::qpid::sys::Mutex::ScopedLock sl(_ifeStateLock);
+    ::qpid::sys::TimerTask::cancel();
+    _state = CANCELLED;
 }
 
 GetEventsFireEvent::GetEventsFireEvent(JournalImpl* p,
@@ -65,20 +110,13 @@ JournalImpl::JournalImpl(::qpid::sys::Timer& timer_,
                          timer(timer_),
                          _journalLogRef(journalLogRef),
                          getEventsTimerSetFlag(false),
-                         writeActivityFlag(false),
-                         flushTriggeredFlag(true),
                          deleteCallback(onDelete)
 {
     getEventsFireEventsPtr = new GetEventsFireEvent(this, getEventsTimeout);
     inactivityFireEventPtr = new InactivityFireEvent(this, flushTimeout);
-    {
-        timer.start();
-        timer.add(inactivityFireEventPtr);
-    }
 
     initManagement(a);
 
-    QLS_LOG2(info, _jid, "Created");
     std::ostringstream oss;
     oss << "Journal directory = \"" << journalDirectory << "\"";
     QLS_LOG2(debug, _jid, oss.str());
@@ -99,7 +137,7 @@ JournalImpl::~JournalImpl()
 	_mgmtObject.reset();
     }
 
-    QLS_LOG2(info, _jid, "Destroyed");
+    QLS_LOG2(info, _jid, "Stopped");
 }
 
 void
@@ -132,19 +170,17 @@ void
 JournalImpl::initialize(::qpid::linearstore::journal::EmptyFilePool* efpp_,
                         const uint16_t wcache_num_pages,
                         const uint32_t wcache_pgsize_sblks,
-                        ::qpid::linearstore::journal::aio_callback* const cbp)
+                        ::qpid::linearstore::journal::aio_callback* const cbp,
+                        const std::string& nonDefaultParamsMsg)
 {
 //    efpp->createJournal(_jdir);
 //    QLS_LOG2(info, _jid, "Initialized");
-//    std::ostringstream oss;
-////    oss << "Initialize; num_jfiles=" << num_jfiles << " jfsize_sblks=" << jfsize_sblks;
-//    oss << "Initialize; efpPartitionNumber=" << efpp_->getPartitionNumber();
-//    oss << " efpFileSizeKb=" << efpp_->fileSizeKib();
-//    oss << " wcache_pgsize_sblks=" << wcache_pgsize_sblks;
-//    oss << " wcache_num_pages=" << wcache_num_pages;
-//    QLS_LOG2(debug, _jid, oss.str());
     jcntl::initialize(efpp_, wcache_num_pages, wcache_pgsize_sblks, cbp);
-//    QLS_LOG2(debug, _jid, "Initialization complete");
+    if (nonDefaultParamsMsg.size() > 0) {
+        QLS_LOG2(info, _jid, "Created, parameters:" << nonDefaultParamsMsg);
+    } else {
+        QLS_LOG2(info, _jid, "Created");
+    }
     // TODO: replace for linearstore: _lpmgr
 /*
     if (_mgmtObject.get() != 0)
@@ -386,9 +422,7 @@ JournalImpl::txn_commit(::qpid::linearstore::journal::data_tok* const dtokp,
 void
 JournalImpl::stop(bool block_till_aio_cmpl)
 {
-    InactivityFireEvent* ifep = dynamic_cast<InactivityFireEvent*>(inactivityFireEventPtr.get());
-    assert(ifep); // dynamic_cast can return null if the cast fails
-    ifep->cancel();
+    inactivityFireEventPtr->cancel();
     jcntl::stop(block_till_aio_cmpl);
 
     if (_mgmtObject.get() != 0) {
@@ -400,10 +434,19 @@ JournalImpl::stop(bool block_till_aio_cmpl)
 ::qpid::linearstore::journal::iores
 JournalImpl::flush(const bool block_till_aio_cmpl)
 {
+    return inactivityFireEventPtr->flush(block_till_aio_cmpl);
+}
+
+// This flush call is accessed via the InactivityFireEvent::flush() and
+// InactivityFireEvent::fire() calls only.
+::qpid::linearstore::journal::iores
+ JournalImpl::do_flush(const bool block_till_aio_cmpl) {
     const ::qpid::linearstore::journal::iores res = jcntl::flush(block_till_aio_cmpl);
     {
         ::qpid::sys::Mutex::ScopedLock sl(_getf_lock);
-        if (_wmgr.get_aio_evt_rem() && !getEventsTimerSetFlag) { setGetEventTimer(); }
+        if (_wmgr.get_aio_evt_rem() && !getEventsTimerSetFlag) {
+            setGetEventTimer();
+        }
     }
     return res;
 }
@@ -415,24 +458,6 @@ JournalImpl::getEventsFire()
     getEventsTimerSetFlag = false;
     if (_wmgr.get_aio_evt_rem()) { jcntl::get_wr_events(0); }
     if (_wmgr.get_aio_evt_rem()) { setGetEventTimer(); }
-}
-
-void
-JournalImpl::flushFire()
-{
-    if (writeActivityFlag) {
-        writeActivityFlag = false;
-        flushTriggeredFlag = false;
-    } else {
-        if (!flushTriggeredFlag) {
-            flush(false);
-            flushTriggeredFlag = true;
-        }
-    }
-    inactivityFireEventPtr->setupNextFire();
-    {
-        timer.add(inactivityFireEventPtr);
-    }
 }
 
 void
@@ -476,7 +501,7 @@ JournalImpl::createStore() {
 void
 JournalImpl::handleIoResult(const ::qpid::linearstore::journal::iores r)
 {
-    writeActivityFlag = true;
+    inactivityFireEventPtr->reset(timer);
     switch (r)
     {
         case ::qpid::linearstore::journal::RHM_IORES_SUCCESS:
