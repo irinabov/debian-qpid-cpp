@@ -165,8 +165,6 @@ const Value MessageSelectorEnv::specialValue(const string& id) const
             returnedStrings.push_back(new string(jmsType));
             v = returnedStrings[returnedStrings.size()-1];
         }
-    } else {
-        v = Value();
     }
     return v;
 }

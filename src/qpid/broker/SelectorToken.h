@@ -69,7 +69,8 @@ struct Token {
     std::string val;
     std::string::const_iterator tokenStart;
 
-    Token()
+    Token() :
+        type(T_EOS)
     {}
 
     Token(TokenType t, const std::string& v) :

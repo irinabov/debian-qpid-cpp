@@ -47,14 +47,17 @@ class JournalLogImpl;
 class InactivityFireEvent : public ::qpid::sys::TimerTask
 {
     JournalImpl* _parent;
-    ::qpid::sys::Mutex _ife_lock;
+    enum {NOT_ADDED=0, RUNNING, FIRED, FLUSHED, CANCELLED} _state;
+    ::qpid::sys::Mutex _ifeStateLock;
 
   public:
     InactivityFireEvent(JournalImpl* p,
                         const ::qpid::sys::Duration timeout);
     virtual ~InactivityFireEvent() {}
+    void reset(qpid::sys::Timer& timer);
+    ::qpid::linearstore::journal::iores flush(bool blockFlag);
     void fire();
-    inline void cancel() { ::qpid::sys::Mutex::ScopedLock sl(_ife_lock); _parent = 0; }
+    void cancel();
 };
 
 class GetEventsFireEvent : public ::qpid::sys::TimerTask
@@ -81,13 +84,11 @@ class JournalImpl : public ::qpid::broker::ExternalQueueStore,
     ::qpid::sys::Timer& timer;
     JournalLogImpl& _journalLogRef;
     bool getEventsTimerSetFlag;
-    boost::intrusive_ptr< ::qpid::sys::TimerTask> getEventsFireEventsPtr;
+    boost::intrusive_ptr<GetEventsFireEvent> getEventsFireEventsPtr;
     ::qpid::sys::Mutex _getf_lock;
     ::qpid::sys::Mutex _read_lock;
 
-    bool writeActivityFlag;
-    bool flushTriggeredFlag;
-    boost::intrusive_ptr< ::qpid::sys::TimerTask> inactivityFireEventPtr;
+    boost::intrusive_ptr<InactivityFireEvent> inactivityFireEventPtr;
 
     ::qpid::management::ManagementAgent* _agent;
     ::qmf::org::apache::qpid::linearstore::Journal::shared_ptr _mgmtObject;
@@ -108,15 +109,17 @@ class JournalImpl : public ::qpid::broker::ExternalQueueStore,
 
     void initManagement(::qpid::management::ManagementAgent* agent);
 
-    void initialize(::qpid::linearstore::journal::EmptyFilePool* efp,
+    void initialize(::qpid::linearstore::journal::EmptyFilePool* efpp,
                     const uint16_t wcache_num_pages,
                     const uint32_t wcache_pgsize_sblks,
-                    ::qpid::linearstore::journal::aio_callback* const cbp);
+                    ::qpid::linearstore::journal::aio_callback* const cbp,
+                    const std::string& nonDefaultParamsMsg);
 
     inline void initialize(::qpid::linearstore::journal::EmptyFilePool* efpp,
                            const uint16_t wcache_num_pages,
-                           const uint32_t wcache_pgsize_sblks) {
-        initialize(efpp, wcache_num_pages, wcache_pgsize_sblks, this);
+                           const uint32_t wcache_pgsize_sblks,
+                           const std::string& nonDefaultParamsMsg) {
+        initialize(efpp, wcache_num_pages, wcache_pgsize_sblks, this, nonDefaultParamsMsg);
     }
 
     void recover(boost::shared_ptr< ::qpid::linearstore::journal::EmptyFilePoolManager> efpm,
@@ -180,10 +183,10 @@ class JournalImpl : public ::qpid::broker::ExternalQueueStore,
 
     // Overrides for get_events timer
     ::qpid::linearstore::journal::iores flush(const bool block_till_aio_cmpl);
+    ::qpid::linearstore::journal::iores do_flush(const bool block_till_aio_cmpl);
 
     // TimerTask callback
     void getEventsFire();
-    void flushFire();
 
     // AIO callbacks
     virtual void wr_aio_cb(std::vector< ::qpid::linearstore::journal::data_tok*>& dtokl);
