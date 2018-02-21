@@ -21,7 +21,7 @@ Build-Depends: debhelper (>= 9.0.0~),
                libibverbs-dev,
                swig,
                ruby,
-               libqpid-core1-dev,
+               libqpid-proton-core10-dev,
                python-setuptools, dh-python,
                dh-systemd
 X-Python-Version: >= 2.6
