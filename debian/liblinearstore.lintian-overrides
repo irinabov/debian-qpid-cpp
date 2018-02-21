@@ -1,0 +1,2 @@
+liblinearstore: package-name-doesnt-match-sonames liblinearstoreutils
+liblinearstore: shlib-without-versioned-soname usr/lib/x86_64-linux-gnu/liblinearstoreutils.so liblinearstoreutils.so

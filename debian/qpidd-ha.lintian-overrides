@@ -1,0 +1,1 @@
+qpidd-ha: init.d-script-does-not-source-init-functions etc/init.d/qpidd-primary
