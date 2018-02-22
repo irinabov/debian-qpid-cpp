@@ -1,3 +1,9 @@
+qpid-cpp (1.37.0-1qpid+trusty1) trusty; urgency=medium
+
+  * Rebased on 1.37.0
+
+ -- Irina Boverman <iboverma@redhat.com>  Wed, 21 Feb 2018 09:48:30 -0400
+
 qpid-cpp (1.36.0-1qpid+trusty1) trusty; urgency=medium
 
   * Rebased on 1.36.0

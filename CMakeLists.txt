@@ -19,7 +19,12 @@
 
 project(qpid-cpp)
 
-cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
+if (NOT MSVC)
+  cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
+else (NOT MSVC)
+  # windows PDB file installation needs v3.1
+  cmake_minimum_required(VERSION 3.1.3 FATAL_ERROR)
+endif (NOT MSVC)
 
 if (CMAKE_CONFIGURATION_TYPES)
   # There is no single "build type"...
@@ -57,7 +62,7 @@ set(qpidc_version ${QPID_VERSION_FULL})
 
 include(BuildInstallSettings.cmake)
 
-find_package(PythonInterp REQUIRED)
+find_package(PythonInterp 2.7 REQUIRED)
 
 enable_testing()
 include (CTest)
@@ -142,10 +147,9 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL GNU)
    # -Wunreachable-code -Wpadded -Winline
    # -Wshadow - warns about boost headers.
    set (WARNING_FLAGS
-     "-Werror -pedantic -Wall -Wextra -Wno-shadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-long-long -Wvolatile-register-var -Winvalid-pch -Wno-system-headers -Woverloaded-virtual -Wno-error=deprecated-declarations")
+     "-Werror -pedantic -Wall -Wextra -Wno-shadow -Wpointer-arith -Wcast-qual -Wcast-align -Wno-long-long -Wvolatile-register-var -Winvalid-pch -Wno-system-headers -Woverloaded-virtual -Wno-deprecated-declarations")
 
    if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7)
-     message("FIXME FLAGGING")
      set(WARNING_FLAGS "${WARNING_FLAGS} -Wno-implicit-fallthrough")
    endif()
 

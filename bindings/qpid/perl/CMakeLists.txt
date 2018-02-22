@@ -28,7 +28,7 @@ list(APPEND SWIG_MODULE_cqpid_perl_EXTRA_DEPS
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../include/qpid/qpid.i
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../include/qpid/swig_perl_typemaps.i
 )
-swig_add_module(cqpid_perl perl ${CMAKE_CURRENT_SOURCE_DIR}/perl.i)
+swig_add_library(cqpid_perl LANGUAGE perl SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/perl.i)
 swig_link_libraries(cqpid_perl qpidmessaging qpidtypes ${PERL_LIBRARY})
 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "${NOSTRICT_ALIASING}")
 
@@ -43,13 +43,18 @@ include_directories(${PERL_INCLUDE_PATH}
 # it's coming from a version of Cmake < 2.8
 install(TARGETS ${SWIG_MODULE_cqpid_perl_REAL_NAME}
         RENAME cqpid_perl.so
-        DESTINATION ${PERL_PFX_ARCHLIB}
+        DESTINATION ${PERL_PFX_ARCHLIB}/auto/cqpid_perl
         COMPONENT ${QPID_COMPONENT_CLIENT}
 )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cqpid_perl.pm
-              ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
-              ${CMAKE_CURRENT_SOURCE_DIR}/Makefile.PL
+              ${CMAKE_CURRENT_SOURCE_DIR}/lib/qpid_messaging.pm
+              ${CMAKE_CURRENT_SOURCE_DIR}/lib/qpid.pm
         DESTINATION ${PERL_PFX_ARCHLIB}
         COMPONENT ${QPID_COMPONENT_CLIENT}
         )
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lib/qpid
+  DESTINATION ${PERL_PFX_ARCHLIB}
+  COMPONENT ${QPID_COMPONENT_CLIENT}
+  )
