@@ -1,0 +1,1 @@
+qpid-cpp source: dependency-is-not-multi-archified liblinearstore depends on qpidd (multi-arch: no)
