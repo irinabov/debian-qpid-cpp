@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -16,7 +17,24 @@
 # specific language governing permissions and limitations
 # under the License.
 #
+#
+# Assumes all tools are installed
+#
+ver="($(qpidd --version | cut -d"(" -f2)"
+#
+help2man --no-info --include=qpidd.x --output=qpidd.1 --version-option="--version" qpidd
+#
+man_pages="qpid-tool qmf-gen qpid-config qpid-ha qpid-printevents qpid-queue-stats qpid-route qpid-stat"
+for page in ${man_pages} 
+do
+  help2man --no-info --include=${page}.x --output=${page}.1 --version-string=" $ver" $page
+done
+#
+man_pages="qpid-receive qpid-send"
+for page in ${man_pages} 
+do
+  help2man --no-info --include=${page}.x --output=${page}.1 --version-string=" $ver" --no-discard-stderr $page
+done
 
-install (FILES qpidd.1 qmf-gen.1 qpid-printevents.1 qpid-receive.1 qpid-send.1 qpid-tool.1
-               qpid-config.1 qpid-ha.1 qpid-queue-stats.1 qpid-route.1 qpid-stat.1
-         DESTINATION ${QPID_INSTALL_MANDIR}/man1)
+exit
+

@@ -151,10 +151,10 @@ if (VALGRIND_FOUND)
   option(ENABLE_VALGRIND "Use valgrind to detect run-time problems" ON)
 endif (VALGRIND_FOUND)
 
-option(ENABLE_WARNINGS "Enable lots of compiler warnings (recommended)" ON)
-if (NOT ENABLE_WARNINGS)
-  set (WARNING_FLAGS "")
-endif (NOT ENABLE_WARNINGS)
+option(ENABLE_WARNING_ERROR "Consider compiler warnings to be errors" ON)
+if (ENABLE_WARNING_ERROR)
+  set(WARNING_FLAGS "${WARNING_FLAGS} -Werror")
+endif (ENABLE_WARNING_ERROR)
 
 if (GCC_VERSION AND NOT GCC_VERSION VERSION_LESS 5.1)
   option(ENABLE_GLIBCXX_OLD_ABI "Enable old (pre GCC 5.1) C++ ABI" OFF)
@@ -1001,7 +1001,7 @@ set (qpidmessaging_SOURCES
 add_msvc_version (qpidmessaging library dll)
 
 add_library (qpidmessaging SHARED ${qpidmessaging_SOURCES})
-target_link_libraries (qpidmessaging qpidtypes qpidclient qpidcommon ${Proton_LIBRARIES})
+target_link_libraries (qpidmessaging qpidtypes qpidclient qpidcommon ${Proton_Core_LIBRARIES})
 set_target_properties (qpidmessaging PROPERTIES
                        LINK_FLAGS "${HIDE_SYMBOL_FLAGS} ${LINK_VERSION_SCRIPT_FLAG}"
                        COMPILE_FLAGS "${HIDE_SYMBOL_FLAGS}"

@@ -19,14 +19,11 @@
 
 # Optional AMQP1.0 support. Requires proton toolkit.
 
-find_package(Proton 0.7)
+find_package(Proton 0.16)
 
 set (amqp_default ${amqp_force})
-set (maximum_version 0.18.1)
+
 if (Proton_FOUND)
-    if (Proton_VERSION VERSION_GREATER ${maximum_version})
-        message(WARNING "Qpid proton ${Proton_VERSION} is not a tested version and might not be compatible, ${maximum_version} is highest tested; build may not work")
-    endif (Proton_VERSION VERSION_GREATER ${maximum_version})
     message(STATUS "Qpid proton found, amqp 1.0 support enabled")
     set (amqp_default ON)
     if (Proton_VERSION VERSION_GREATER 0.7)
@@ -104,7 +101,7 @@ if (BUILD_AMQP)
     include_directories(${Proton_INCLUDE_DIRS})
 
     add_library (amqp MODULE ${amqp_SOURCES})
-    target_link_libraries (amqp qpidtypes qpidbroker qpidcommon ${Proton_LIBRARIES})
+    target_link_libraries (amqp qpidtypes qpidbroker qpidcommon ${Proton_Core_LIBRARIES})
     set_target_properties (amqp PROPERTIES
                            PREFIX "")
 
