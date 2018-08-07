@@ -1,3 +1,9 @@
+qpid-cpp (1.38.0-1qpid+xenial1) xenial; urgency=medium
+
+  * Rebased on 1.38.0
+
+ -- Irina Boverman <iboverma@redhat.com>  Tue,  7 Aug 2018 13:55:12 -0400
+
 qpid-cpp (1.37.0-1qpid+xenial1) xenial; urgency=medium
 
   * Rebased on 1.37.0
