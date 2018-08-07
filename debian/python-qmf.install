@@ -1,3 +1,1 @@
-usr/lib/python2.7/dist-packages/qmf.py
-usr/lib/python2.7/dist-packages/qmfengine.py
-usr/lib/python2.7/dist-packages/_qmfengine.so
+usr/lib/python2.7/dist-packages/qmf/*.py
