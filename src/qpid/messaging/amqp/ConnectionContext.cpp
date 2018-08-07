@@ -207,7 +207,12 @@ void ConnectionContext::close()
                 syncLH(i->second, l);
             } catch (const MessageRejected& e) {
                 QPID_LOG(error, "Could not sync session on connection close due to message rejection (use explicit sync to handle exception): " << e.what());
+            } catch (const SessionClosed& e) {
+                continue;
+            } catch (const TransactionAborted& e) {
+                continue;
             }
+
             if (!(pn_session_state(i->second->session) & PN_LOCAL_CLOSED)) {
                 pn_session_close(i->second->session);
             }
@@ -372,14 +377,20 @@ void ConnectionContext::nack(boost::shared_ptr<SessionContext> ssn, qpid::messag
 void ConnectionContext::detach(boost::shared_ptr<SessionContext> ssn, boost::shared_ptr<SenderContext> lnk)
 {
     sys::Monitor::ScopedLock l(lock);
+
     if (pn_link_state(lnk->sender) & PN_LOCAL_ACTIVE) {
         lnk->close();
     }
-    wakeupDriver();
-    while (pn_link_state(lnk->sender) & PN_REMOTE_ACTIVE) {
-        wait(ssn);
+
+    if (state == CONNECTED) {
+        wakeupDriver();
+        while (pn_link_state(lnk->sender) & PN_REMOTE_ACTIVE) {
+            wait(ssn);
+        }
     }
+
     ssn->removeSender(lnk->getName());
+    lnk->reset(0);
 }
 
 void ConnectionContext::drain_and_release_messages(boost::shared_ptr<SessionContext> ssn, boost::shared_ptr<ReceiverContext> lnk)
