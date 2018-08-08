@@ -221,6 +221,7 @@ Architecture: any
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
          python-qpid-messaging (= ${binary:Version})
+Replaces: python-qmf2, python-cqmf2
 Description: enterprise messaging system - Python QMF2 bindings
  Apache Qpid is a cross-platform enterprise messaging system which implements
  the Advanced Message Queuing Protocol (AMQP), providing message brokers
