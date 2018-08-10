@@ -3,7 +3,7 @@ Section: misc
 Priority: optional
 Maintainer: Debian Middleware Maintainers <pkg-middleware-maintainers@lists.alioth.debian.org>
 Uploaders: Darryl L. Pierce <dpierce@redhat.com>, Daniel Pocock <daniel@pocock.pro>
-Build-Depends: debhelper,
+Build-Depends: debhelper (>= 9.20160709),
                cmake,
                pkg-config,
                libboost-program-options-dev,
@@ -22,8 +22,7 @@ Build-Depends: debhelper,
                swig,
                ruby,
                libqpid-proton-core10-dev,
-               python-setuptools, dh-python,
-               dh-systemd
+               python-setuptools, dh-python
 X-Python-Version: >= 2.6
 Standards-Version: 3.9.7
 Homepage: http://qpid.apache.org/
@@ -250,6 +249,7 @@ Provides: qpidd-linear-store
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Qpid broker linear store libraries
  Apache Qpid is a cross-platform enterprise messaging system which implements
  the Advanced Message Queuing Protocol (AMQP), providing message brokers
