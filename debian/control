@@ -1,9 +1,9 @@
 Source: qpid-cpp
 Section: misc
-Priority: extra
+Priority: optional
 Maintainer: Debian Middleware Maintainers <pkg-middleware-maintainers@lists.alioth.debian.org>
 Uploaders: Darryl L. Pierce <dpierce@redhat.com>, Daniel Pocock <daniel@pocock.pro>
-Build-Depends: debhelper (>= 9.0.0~),
+Build-Depends: debhelper,
                cmake,
                pkg-config,
                libboost-program-options-dev,
@@ -27,8 +27,7 @@ Build-Depends: debhelper (>= 9.0.0~),
 X-Python-Version: >= 2.6
 Standards-Version: 3.9.7
 Homepage: http://qpid.apache.org/
-Vcs-Browser: http://git.debian.org/?p=pkg-middleware/qpid-cpp.git
-Vcs-Git: git://git.debian.org/git/pkg-middleware/qpid-cpp.git
+Vcs-Browser:  https://salsa.debian.org/middleware-team/qpid-cpp
 
 Package: libqpidtypes1
 Architecture: any
@@ -251,8 +250,6 @@ Provides: qpidd-linear-store
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: qpidd (= ${binary:Version}),
-         ${shlibs:Depends}, ${misc:Depends}
 Description: Qpid broker linear store libraries
  Apache Qpid is a cross-platform enterprise messaging system which implements
  the Advanced Message Queuing Protocol (AMQP), providing message brokers
