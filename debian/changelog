@@ -1,4 +1,10 @@
-qpid-cpp (1.38.0-1qpid+bionic1) bionic; urgency=medium
+qpid-cpp (1.39.0-1qpid+bionic1) bionic; urgency=medium
+  
+  * Rebased on 1.39.0
+
+ -- Irina Boverman <iboverma@redhat.com>  Thu, 31 Jan 2019 13:17:19 -0400
+
+qpid-cpp (1.38.0-1qpid+xenial1) xenial; urgency=medium
 
   * Rebased on 1.38.0
 
