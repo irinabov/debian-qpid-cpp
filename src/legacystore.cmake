@@ -58,6 +58,11 @@ endif (DEFINED legacystore_force)
 option(BUILD_LEGACYSTORE "Build legacystore persistent store" ${legacystore_default})
 
 if (BUILD_LEGACYSTORE)
+    message(DEPRECATION "\n\
+**************************************************************************\n\
+DEPRECATION NOTICE: Legacystore is deprecated, and will be removed at some time in the near \
+future. Please use linearstore instead. \n\
+**************************************************************************\n")
     if (NOT UNIX)
         message(FATAL_ERROR "Legacystore produced only on Unix platforms")
     endif (NOT UNIX)
@@ -89,6 +94,7 @@ if (BUILD_LEGACYSTORE)
         qpid/legacystore/jrnl/lp_map.cpp
         qpid/legacystore/jrnl/lpmgr.cpp
         qpid/legacystore/jrnl/pmgr.cpp
+        qpid/legacystore/jrnl/rec_hdr.cpp
         qpid/legacystore/jrnl/rmgr.cpp
         qpid/legacystore/jrnl/rfc.cpp
         qpid/legacystore/jrnl/rrfc.cpp
