@@ -1,4 +1,4 @@
-qpid-cpp (1.39.0-1qpid+xenial1) xenial; urgency=medium
+qpid-cpp (1.39.0-2qpid+xenial1) xenial; urgency=medium
   
   * Rebased on 1.39.0
 
