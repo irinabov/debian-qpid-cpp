@@ -3,7 +3,7 @@ Section: misc
 Priority: extra
 Maintainer: Debian Middleware Maintainers <pkg-middleware-maintainers@lists.alioth.debian.org>
 Uploaders: Darryl L. Pierce <dpierce@redhat.com>, Daniel Pocock <daniel@pocock.pro>
-Build-Depends: debhelper (>= 9.20160709),
+Build-Depends: debhelper (>= 9.0.0~),
                cmake,
                pkg-config,
                libboost-program-options-dev,
@@ -22,7 +22,8 @@ Build-Depends: debhelper (>= 9.20160709),
                swig,
                ruby,
                libqpid-proton-core10-dev,
-               python-setuptools, dh-python
+               python-setuptools, dh-python,
+               dh-systemd
 X-Python-Version: >= 2.6
 Standards-Version: 3.9.7
 Homepage: http://qpid.apache.org/
