@@ -5,3 +5,6 @@ usr/include/qpid/qpid.i
 usr/include/qpid/swig_perl_typemaps.i
 usr/include/qpid/swig_python_typemaps.i
 usr/include/qpid/swig_ruby_typemaps.i
+usr/lib/*/pkgconfig/qpid.pc
+usr/lib/*/cmake/Qpid/QpidConfig.cmake
+usr/lib/*/Qpid/QpidConfigVersion.cmake

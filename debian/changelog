@@ -1,3 +1,9 @@
+qpid-cpp (1.39.0-4qpid+bionic1) bionic; urgency=medium
+  
+  * Updated libqpidcommon-dev.install 
+
+ -- Irina Boverman <iboverma@redhat.com>  Mon, 12 Oct 2020 10:24:00 -0400
+
 qpid-cpp (1.39.0-3qpid+bionic1) bionic; urgency=medium
   
   * Rebased on 1.39.0
